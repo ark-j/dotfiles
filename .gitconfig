@@ -2,7 +2,7 @@
 	name = Jayesh Kale
 	email = jayesh6297@gmail.com
 [credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+	helper = libsecret
 [pull]
 	rebase = true
 [alias]

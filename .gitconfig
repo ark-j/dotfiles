@@ -16,7 +16,6 @@
   syntax-theme = catppuccin
   side-by-side = false
   file-modified-label = modified:
-
 [interactive]
   diffFilter = delta --color-only
 [url "https://github.com/"]

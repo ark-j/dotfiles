@@ -1,0 +1,142 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """
+$os\
+$directory\
+$cmd_duration\
+$git_branch\
+$git_status\
+$status\
+$line_break$character\
+"""
+
+right_format = """
+$container\
+$docker_context\
+$golang\
+$lua\
+$pulumi\
+$python\
+"""
+
+palette = "catppuccin_mocha"
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# left modules
+[os]
+disabled = false
+style = "bold mauve"
+format = "[$symbol ]($style)"
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold rosewater"
+
+[cmd_duration]
+style = "bold pink"
+format = " took [$duration ]($style)"
+
+[git_branch]
+style = "bold teal"
+symbol = ""
+format = "[$symbol $branch ]($style)"
+
+[git_status]
+style = "red bold"
+format = "([$all_status$ahead_behind ]($style) )"
+
+# right modules
+[container]
+symbol = "⬢"
+style = "red bold dimmed"
+format = "[$symbol \\[$name\\] ]($style)"
+
+[docker_context]
+symbol = " "
+style = "blue bold"
+format = "[$symbol$context ]($style)"
+
+[golang]
+symbol = ""
+style = "bold blue"
+format = "[$symbol ($version )]($style)"
+
+[lua]
+symbol = " "
+style = "bold blue"
+format = "[$symbol ($version )]($style)"
+
+[pulumi]
+symbol = " "
+style = "bold lavender"
+format = "[$symbol ($username@)$stack ]($style)"
+
+[python]
+symbol = " "
+style = "yellow bold"
+format = "[${symbol} ${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
+
+# Prmopt
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[➜](bold red)'
+vimcmd_symbol = '[➜](bold green)'
+vimcmd_replace_one_symbol = '[➜](bold purple)'
+vimcmd_replace_symbol = '[➜](bold purple)'
+vimcmd_visual_symbol = '[➜](bold yellow)'
+
+[package]
+disabled = true

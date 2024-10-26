@@ -1,8 +1,8 @@
 [window]
-dynamic_title = true
+dynamic_title = false
 
 [font]
-normal = { family = "JetBrainsMono NF Light"}
+normal = { family = "JetBrainsMono NF Light" }
 size = 13
 # normal = { family = "Fira Code Light" }
 # size = 13

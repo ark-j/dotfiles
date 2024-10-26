@@ -1,0 +1,25 @@
+[user]
+	name = Jayesh Kale
+	email = jayesh6297@gmail.com
+[credential]
+	helper = store
+[crendentials]
+	helper = /usr/lib/git-core/git-credential-libsecret
+[pull]
+	rebase = true
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+[push]
+	default = current
+[delta]
+  line-numbers = true
+  syntax-theme = catppuccin
+  side-by-side = false
+  file-modified-label = modified:
+
+[interactive]
+  diffFilter = delta --color-only
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+[init]
+	defaultBranch = main

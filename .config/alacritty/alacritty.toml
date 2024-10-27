@@ -6,6 +6,8 @@ normal = { family = "JetBrainsMono NF Light" }
 size = 13
 # normal = { family = "Fira Code Light" }
 # size = 13
+# normal = { family = "Berkeley Mono" }
+# size = 14
 
 [cursor]
 style = { shape = "Beam", blinking = "On" }

@@ -20,7 +20,9 @@ return {
 
 		require("dapui").setup()
 		require("dap-go").setup()
-		require("nvim-dap-virtual-text").setup({})
+		require("nvim-dap-virtual-text").setup({
+			virt_lines = true,
+		})
 
 		vim.keymap.set("n", "<F1>", dap.continue)
 		vim.keymap.set("n", "<F2>", dap.step_into)
@@ -29,11 +31,28 @@ return {
 		vim.keymap.set("n", "<F5>", dap.step_back)
 		vim.keymap.set("n", "<F13>", dap.restart)
 		vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
-		vim.keymap.set("n", "<leader>B", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
 
-		dap.listeners.before.attach.dapui_config = function() ui.open() end
-		dap.listeners.before.launch.dapui_config = function() ui.open() end
-		dap.listeners.before.event_terminated.dapui_config = function() ui.close() end
-		dap.listeners.before.event_exited.dapui_config = function() ui.close() end
+		vim.keymap.set("n", "<leader>B", function()
+			dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+		end)
+		vim.keymap.set("n", "<leader>gb", dap.run_to_cursor)
+
+		vim.keymap.set("n", "<leader>?", function()
+			---@diagnostic disable-next-line: missing-fields
+			require("dapui").eval(nil, { enter = true })
+		end)
+
+		dap.listeners.before.attach.dapui_config = function()
+			ui.open()
+		end
+		dap.listeners.before.launch.dapui_config = function()
+			ui.open()
+		end
+		dap.listeners.before.event_terminated.dapui_config = function()
+			ui.close()
+		end
+		dap.listeners.before.event_exited.dapui_config = function()
+			ui.close()
+		end
 	end,
 }

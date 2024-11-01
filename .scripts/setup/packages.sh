@@ -12,7 +12,7 @@ sudo pacman -S mpv vlc \
 	pnpm npm go rust python-pip luarocks \
 	tmux fzf ripgrep fd stow lazygit lsd \
 	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
-	brave-bin zen-browser-avx2-bin warp \
+	brave-bin zen-browser-avx2-bin warp zig \
 	bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse \
 	flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl \
 	qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git \

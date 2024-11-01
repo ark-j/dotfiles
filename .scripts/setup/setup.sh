@@ -13,13 +13,13 @@ sudo pacman -Syyu
 echo "installing necessary things"
 sudo pacman -S mpv vlc \ 
 	pnpm npm go rust python-pip luarocks zig paru \
-	tmux fzf ripgrep fd stow lazygit lsd \
+	tmux fzf ripgrep fd stow lazygit lsd rsync \
 	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
 	brave-bin zen-browser-avx2-bin warp\
 	bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse \
 	flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl \
 	qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git \
-	otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono \
+	otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig noto-fonts noto-fonts-emoji noto-fonts-extra inter-font\
 	papirus capitaine-cursors --noconform
 
 echo "installing extra packages"

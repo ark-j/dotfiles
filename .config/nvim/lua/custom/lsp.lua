@@ -192,7 +192,6 @@ M.install = function()
 
 		-- formatters
 		"stylua", -- Used to format Lua code
-		"goimports-reviser", -- grouped formatting of go imports
 		"prettier", -- used to formatter html, css, javascript
 		"ruff", -- used to format python code
 

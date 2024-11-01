@@ -10,7 +10,6 @@ return { -- Autoformat
 				lua = { "stylua" },
 				html = { "prettier" },
 				python = { "ruff" },
-				go = { "goimports-reviser" },
 			},
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {

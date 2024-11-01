@@ -12,7 +12,7 @@ sudo pacman -S mpv vlc \
 	pnpm npm go rust python-pip luarocks \
 	tmux fzf ripgrep fd stow lazygit lsd \
 	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
-	brave-bin zen-browser-avx2-bin \
+	brave-bin zen-browser-avx2-bin warp \
 	bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse \
 	flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl \
 	qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git \
@@ -28,5 +28,6 @@ echo "setting up docker"
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
+
+echo "enabling services"
+sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service

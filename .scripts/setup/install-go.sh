@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## you can run this and install go as needed
 echo "getting go version"
 version=$(curl -s https://go.dev/dl/ | grep -E -o "go[0-9]+\.[0-9]+\.[0-9]+\.linux-amd64\.tar\.gz" | head -n 1)
 echo "installing version ${version}"

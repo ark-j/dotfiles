@@ -1,18 +1,21 @@
 #!/usr/bin/bash
 
 echo "installing cachy os repos" 
-curl https://mirror.cachyos.org/cachyos-repo.tar.xz -o cachyos-repo.tar.xz
-tar xvf cachyos-repo.tar.xz && cd cachyos-repo
-sudo ./cachyos-repo.sh
-cd ..
-rm -rf cachyos-repo
+./cachyos-repo.sh
+
+echo "configuring pacman"
+sudo rm -rf /etc/pacman.conf
+sudo cp ./pacman.conf /etc/
+
+echo "updating the package index and system"
+sudo pacman -Syyu
 
 echo "installing necessary things"
 sudo pacman -S mpv vlc \ 
-	pnpm npm go rust python-pip luarocks \
+	pnpm npm go rust python-pip luarocks zig \
 	tmux fzf ripgrep fd stow lazygit lsd \
 	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
-	brave-bin zen-browser-avx2-bin warp zig \
+	brave-bin zen-browser-avx2-bin warp\
 	bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse \
 	flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl \
 	qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git \
@@ -31,3 +34,11 @@ newgrp docker
 
 echo "enabling services"
 sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service
+
+echo "setting up zsh as default"
+chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
+
+echo "setting up dotfiles"
+git clone https://github.com/ark-j/dotfiles.git
+cd dotfiles && stow .

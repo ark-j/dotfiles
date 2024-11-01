@@ -12,7 +12,7 @@ sudo pacman -Syyu
 
 echo "installing necessary things"
 sudo pacman -S mpv vlc \ 
-	pnpm npm go rust python-pip luarocks zig \
+	pnpm npm go rust python-pip luarocks zig paru \
 	tmux fzf ripgrep fd stow lazygit lsd \
 	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
 	brave-bin zen-browser-avx2-bin warp\

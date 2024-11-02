@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+echo "removing uncessary apps"
+sudo pacman -R gnome-contacts yelp gnome-user-docs gnome-maps gnome-music totem --noconfirm
+
 echo "installing cachy os repos" 
 ./cachyos-repo.sh
 
@@ -8,22 +11,13 @@ sudo rm -rf /etc/pacman.conf
 sudo cp ./pacman.conf /etc/
 
 echo "updating the package index and system"
-sudo pacman -Syyu
+sudo pacman -Syyu --noconfirm
 
 echo "installing necessary things"
-sudo pacman -S mpv vlc \ 
-	pnpm npm go rust python-pip luarocks zig paru \
-	tmux fzf ripgrep fd stow lazygit lsd rsync \
-	wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship \
-	brave-bin zen-browser-avx2-bin warp kitty alacritty \
-	bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse \
-	flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl \
-	qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git \
-	otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig noto-fonts noto-fonts-emoji noto-fonts-extra inter-font \
-	papirus capitaine-cursors --noconform
+sudo pacman -S mpv vlc pnpm npm go rust python-pip luarocks zig paru tmux fzf ripgrep fd stow lazygit lsd rsync wl-clipboard tree-sitter htop p7zip unzip unrar neovim zsh starship brave-bin zen-browser-avx2-bin warp kitty alacritty bluez-cups bluez-mesh nautilus-image-converter nautilus-share seahorse-nautilus seahorse flameshot obs-studio drawio-desktop extension-manager fprintd qbittorrent docker sbctl qt5-wayland qt6-wayland kvantum kvantum-theme-libadwaita-git otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig noto-fonts noto-fonts-emoji noto-fonts-extra inter-font papirus-icon-theme capitaine-cursors alacritty kitty gnome-photos gnome-terminal linux-firmware-qlogic adw-gtk-theme --noconfirm
 
 echo "installing extra packages"
-paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify-adblock --skipreview --removemake --cleanafter --nokeepsrc --noconform
+paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify-adblock ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
 echo "installing tmux package manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -41,5 +35,6 @@ chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
 
 echo "setting up dotfiles"
-git clone https://github.com/ark-j/dotfiles.git
-cd dotfiles && stow .
+cd ~/dotfiles && stow .
+
+curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash

@@ -7,6 +7,12 @@ M.capabilities = vim.tbl_deep_extend(
 )
 M.lspconfig = require("lspconfig")
 
+M.zig = function()
+	M.lspconfig.zls.setup({
+		capabilities = M.capabilities,
+	})
+end
+
 M.go = function()
 	M.lspconfig.gopls.setup({
 		capabilities = M.capabilities,
@@ -220,6 +226,7 @@ end
 M.setup = function()
 	M.on_attach()
 	M.install()
+	M.zig()
 	M.go()
 	M.lua()
 	M.python()

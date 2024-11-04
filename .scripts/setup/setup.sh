@@ -37,4 +37,17 @@ sudo chsh -s $(which zsh)
 echo "setting up dotfiles"
 cd ~/dotfiles && stow .
 
+echo "installing auto p state for amd"
 curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
+
+echo "configuring folder theme"
+git clone https://github.com/EliverLara/Nordic.git /tmp/nordic
+sudo mv /tmp/nordic/kde/folders/Nordic-* /usr/share/icons
+
+echo "setting up themes, icon, cursor, fonts"
+gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Nordic-bluish'
+gsettings set org.gnome.desktop.interface font-name 'Inter 12'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Berkeley Mono Bold 14'
+gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'

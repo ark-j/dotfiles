@@ -82,7 +82,8 @@ alias la="ls -ah"
 alias lg="lazygit"
 alias nv="nvim"
 alias gitconfig="nvim ~/.gitconfig"
-alias aquired-ports="sudo lsof -i -P -n | grep LISTEN"
+alias aquired-ports="sudo lsof -i -P -n"
+alias list-uncommented="grep -v -e '^#' -e '^$' $1"
 
 # Shell integrations
 eval "$(fzf --zsh)"

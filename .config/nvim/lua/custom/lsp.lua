@@ -17,8 +17,8 @@ M.go = function()
 	M.lspconfig.gopls.setup({
 		capabilities = M.capabilities,
 		settings = {
-			buildFlags = { "-tags=integration functional testing pact" },
 			gopls = {
+				buildFlags = { "-tags=integration functional testing pact" },
 				completeUnimported = true,
 				analyses = {
 					shadow = true,

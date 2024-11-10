@@ -14,6 +14,32 @@ return { -- Autoformat
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function(args)
+				if vim.bo.filetype == "go" then
+					local params = vim.lsp.util.make_range_params()
+					params.context = { source = { organizeImports = true } }
+
+					-- Request code actions for organize imports
+					local results, err = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 500)
+					if err then
+						return
+					end
+
+					-- Apply the text edits if any are returned
+					if results then
+						for _, response in pairs(results) do
+							if response.result and #response.result > 0 then
+								for _, action in ipairs(response.result) do
+									if action.edit then
+										vim.lsp.util.apply_workspace_edit(
+											action.edit,
+											vim.lsp.util._get_offset_encoding(args.buf)
+										)
+									end
+								end
+							end
+						end
+					end
+				end
 				conform.format({
 					bufnr = args.buf,
 					lsp_format = "fallback",

@@ -14,7 +14,7 @@ return { -- Autoformat
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function(args)
-				if vim.bo.filetype == "go" then
+				if vim.bo[args.buf].filetype == "go" then
 					local params = vim.lsp.util.make_range_params()
 					params.context = { source = { organizeImports = true } }
 

@@ -18,7 +18,7 @@ M.go = function()
 		capabilities = M.capabilities,
 		settings = {
 			gopls = {
-				buildFlags = { "-tags=integration functional testing pact" },
+				buildFlags = { "-tags=integration unit test pact release mock" },
 				completeUnimported = true,
 				analyses = {
 					shadow = true,

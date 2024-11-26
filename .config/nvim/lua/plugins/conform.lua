@@ -16,10 +16,13 @@ return { -- Autoformat
 			callback = function(args)
 				if vim.bo[args.buf].filetype == "go" then
 					local params = vim.lsp.util.make_range_params()
-					params.context = { source = { organizeImports = true } }
+					params.context = {
+						diagonstics = { vim.diagnostic.get(args.buf) },
+						only = { "source.organizeImports" },
+					}
 
 					-- Request code actions for organize imports
-					local results, err = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 500)
+					local results, err = vim.lsp.buf_request_sync(args.buf, "textDocument/codeAction", params, 500)
 					if err then
 						return
 					end

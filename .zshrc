@@ -74,6 +74,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias kc="kubectl"
+alias kd="kind"
 alias zshconfig="nvim ~/.zshrc"
 alias sudo="sudo "
 alias ls="lsd"

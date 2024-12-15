@@ -3,6 +3,10 @@ export PATH="$PATH:$HOME/go/bin"
 export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 export EDITOR="nvim"
 export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+export CURSOR_THEME=capitaine-cursors-light
+export XCURSOR_PATH=/usr/share/icons
+export XCURSOR_SIZE=24
+export QT_QPA_PLATFORM=wayland
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${HOME}/.local/share}/zinit/zinit.git"

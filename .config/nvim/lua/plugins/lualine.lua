@@ -23,7 +23,7 @@ return {
 						"filename",
 						symbols = {
 							modified = "●",
-							readonly = "⦿ ",
+							readonly = "󰞇 ",
 						},
 					},
 					{

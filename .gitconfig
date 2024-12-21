@@ -21,3 +21,5 @@
 	insteadOf = git@github.com:
 [init]
 	defaultBranch = main
+[http]
+	timeout = 150

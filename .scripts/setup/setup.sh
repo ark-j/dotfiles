@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+token=$1
+
 echo "removing uncessary apps"
 sudo pacman -R gnome-contacts yelp gnome-user-docs gnome-maps gnome-music totem --noconfirm
 
@@ -69,6 +71,14 @@ curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install |
 echo "configuring folder theme"
 git clone https://github.com/EliverLara/Nordic.git /tmp/nordic
 sudo mv /tmp/nordic/kde/folders/Nordic-* /usr/share/icons
+
+if [ -n "$token" ]; then
+	echo "storing git secrets in gnome-keyring"
+	echo -e "protocol=https\nhost=github.com\nusername=ark-j\npassword=$token" | /usr/lib/git-core/git-credential-libsecret store
+fi
+
+echo "refreshing font cache"
+sudo fc-cache -fv && fc-cache -fv
 
 echo "setting up themes, icon, cursor, fonts"
 gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'

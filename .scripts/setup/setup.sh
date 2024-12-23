@@ -23,8 +23,8 @@ sudo pacman -S \
     mpv vlc flameshot obs-studio drawio-desktop \
     gnome-photos nautilus-image-converter nautilus-share \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
-    docker docker-compose fprintd pahole neovim \
-    paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard \
+    docker docker-buildx pigz docker-compose fprintd pahole neovim \
+    paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard reflector \
     htop p7zip unzip unrar starship wireless-regdb \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
     ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd \
@@ -54,8 +54,12 @@ echo "setting up docker"
 sudo usermod -aG docker $USER
 newgrp docker
 
+echo "copying reflector config"
+sudo rm -rf /etc/xdg/reflector/reflector.conf
+sudo cp ./reflector.conf /etc/xdg/reflector/
+
 echo "enabling services"
-sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service cups.service
+sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service cups.service reflector.service
 
 echo "setting up zsh as default"
 chsh -s $(which zsh)

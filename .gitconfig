@@ -23,3 +23,5 @@
 	defaultBranch = main
 [http]
 	timeout = 150
+[core]
+	pager = cat

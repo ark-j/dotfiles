@@ -23,7 +23,7 @@ sudo pacman -S \
     mpv vlc flameshot obs-studio drawio-desktop \
     gnome-photos nautilus-image-converter nautilus-share \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
-    docker docker-compose fprintd pahole \
+    docker docker-compose fprintd pahole neovim \
     paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard \
     htop p7zip unzip unrar starship wireless-regdb \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
@@ -34,9 +34,9 @@ sudo pacman -S \
     noto-fonts noto-fonts-emoji noto-fonts-extra inter-font \
     adw-gtk-theme kvantum kvantum-theme-libadwaita-git \
     papirus-icon-theme capitaine-cursors \
-    kitty alacritty gnome-terminal nautilus \
+    kitty alacritty gnome-terminal zsh bluez-mesh \
     seahorse seahorse-nautilus brave-bin zen-browser-avx2-bin \
-    localsend extension-manager \
+    localsend extension-manager cups logrotate ipp-usb \
     qt5-wayland qt6-wayland linux-firmware-qlogic realtime-privileges \
     lazygit silicon bat qbittorrent sbctl \
     --noconfirm
@@ -51,12 +51,11 @@ echo "installing tmux package manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "setting up docker"
-sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 
 echo "enabling services"
-sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service
+sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service cups.service
 
 echo "setting up zsh as default"
 chsh -s $(which zsh)
@@ -75,10 +74,14 @@ sudo mv /tmp/nordic/kde/folders/Nordic-* /usr/share/icons
 if [ -n "$token" ]; then
 	echo "storing git secrets in gnome-keyring"
 	echo -e "protocol=https\nhost=github.com\nusername=ark-j\npassword=$token" | /usr/lib/git-core/git-credential-libsecret store
+	echo "installing berkeley mono"
+	git clone https://github.com/ark-j/berkeley-mono.git
+    sudo mv ./berkeley-mono /usr/share/fonts/	
 fi
 
 echo "refreshing font cache"
-sudo fc-cache -fv && fc-cache -fv
+sudo fc-cache -fv
+fc-cache -fv
 
 echo "setting up themes, icon, cursor, fonts"
 gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'

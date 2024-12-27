@@ -18,7 +18,6 @@ echo "updating the package index and system"
 sudo pacman -Syyu --noconfirm
 
 echo "installing necessary things"
-
 sudo pacman -S \
     mpv vlc flameshot obs-studio drawio-desktop \
     gnome-photos nautilus-image-converter nautilus-share \
@@ -38,7 +37,7 @@ sudo pacman -S \
     seahorse seahorse-nautilus brave-bin zen-browser-avx2-bin \
     localsend extension-manager cups logrotate ipp-usb \
     qt5-wayland qt6-wayland linux-firmware-qlogic realtime-privileges \
-    lazygit silicon bat qbittorrent sbctl \
+    lazygit silicon bat qbittorrent sbctl sshpass \
     --noconfirm
 
 echo "improving audio by adding realtime privileges user"
@@ -59,7 +58,14 @@ sudo rm -rf /etc/xdg/reflector/reflector.conf
 sudo cp ./reflector.conf /etc/xdg/reflector/
 
 echo "enabling services"
-sudo systemctl enable docker.service containerd.service bluetooth.service bluetooth-mesh.service cups.service reflector.service
+sudo systemctl enable --now \
+	docker.service \
+	containerd.service \
+	bluetooth.service \
+	bluetooth-mesh.service \
+	cups.service \
+	reflector.service \
+	sshd.service
 
 echo "setting up zsh as default"
 chsh -s $(which zsh)

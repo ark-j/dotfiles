@@ -89,6 +89,8 @@ alias nv="nvim"
 alias gitconfig="nvim ~/.gitconfig"
 alias aquired-ports="sudo lsof -i -P -n"
 alias list-uncommented="grep -v -e '^#' -e '^$' $1"
+alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+alias batconfig="nvim ~/.config/bat/config"
 
 # Shell integrations
 eval "$(fzf --zsh)"

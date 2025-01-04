@@ -21,10 +21,10 @@ vim.keymap.set("v", "p", '"_dP', { desc = "after yanking something it keeps in t
 -- nvim tree binding
 vim.keymap.set("n", "<leader>ee", "<Cmd>NvimTreeToggle<CR>", { desc = "toggle nvim tree expolorer" })
 vim.keymap.set(
-	"n",
-	"<leader>ef",
-	"<Cmd>NvimTreeFindFile<CR>",
-	{ desc = "open file focusing it and opening folder if neccessary" }
+  "n",
+  "<leader>ef",
+  "<Cmd>NvimTreeFindFile<CR>",
+  { desc = "open file focusing it and opening folder if neccessary" }
 )
 
 -- todo comments toggle
@@ -45,8 +45,8 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "indent next keeping i
 
 -- snapshots
 vim.keymap.set("v", "<leader>cs", function()
-	require("nvim-silicon").clip()
+  require("nvim-silicon").clip()
 end, { desc = "copy screenshot to clipboard", silent = true })
 vim.keymap.set("v", "<leader>cc", function()
-	require("nvim-silicon").file()
+  require("nvim-silicon").file()
 end, { desc = "save screenshot as file", silent = true })

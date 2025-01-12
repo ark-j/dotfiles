@@ -46,9 +46,6 @@ sudo gpasswd -a $USER realtime
 echo "installing extra packages"
 paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
-echo "installing tmux package manager"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
 echo "setting up docker"
 sudo usermod -aG docker $USER
 newgrp docker
@@ -56,6 +53,9 @@ newgrp docker
 echo "copying reflector config"
 sudo rm -rf /etc/xdg/reflector/reflector.conf
 sudo cp ./reflector.conf /etc/xdg/reflector/
+
+echo "installing auto p state for amd"
+curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
 echo "enabling services"
 sudo systemctl enable --now \
@@ -67,6 +67,12 @@ sudo systemctl enable --now \
 	reflector.service \
 	sshd.service
 
+echo "setting up dotfiles"
+cd ~/dotfiles && stow .
+
+echo "installing tmux package manager"
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+
 echo "setting up zsh as default"
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
@@ -75,12 +81,6 @@ echo "installing kind"
 $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
-
-echo "setting up dotfiles"
-cd ~/dotfiles && stow .
-
-echo "installing auto p state for amd"
-curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
 echo "configuring folder theme"
 git clone https://github.com/EliverLara/Nordic.git /tmp/nordic

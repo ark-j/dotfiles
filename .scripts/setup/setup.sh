@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
-token=$1
+token=${1:-""}
 
 echo "removing uncessary apps"
 sudo pacman -R gnome-contacts yelp gnome-user-docs gnome-maps gnome-music totem --noconfirm

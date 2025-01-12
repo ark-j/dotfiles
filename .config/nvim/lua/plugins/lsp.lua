@@ -24,8 +24,8 @@ return {
     require("custom.lsp").setup()
     require("lsp_lines").setup()
     vim.diagnostic.config({
-      virtual_text = true,
-      virtual_lines = false,
+      virtual_text = false,
+      virtual_lines = true,
     })
     vim.keymap.set("n", "<leader>l", function()
       local config = vim.diagnostic.config() or {}

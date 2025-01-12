@@ -4,10 +4,10 @@ return {
   priority = 1000,
   init = function()
     vim.cmd.colorscheme("catppuccin")
-    if vim.fn.getenv("TERM") == "alacritty" then
-      vim.cmd.hi("Normal gui=bold cterm=bold guifg=NONE guibg=NONE")
-      vim.cmd.hi("BoldText gui=bold cterm=bold guifg=NONE guibg=NONE")
-    end
+    -- if vim.fn.getenv("TERM") == "alacritty" then
+    --   vim.cmd.hi("Normal gui=bold cterm=bold guifg=NONE guibg=NONE")
+    --   vim.cmd.hi("BoldText gui=bold cterm=bold guifg=NONE guibg=NONE")
+    -- end
   end,
   config = function()
     require("catppuccin").setup({

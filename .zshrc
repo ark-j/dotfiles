@@ -91,6 +91,7 @@ alias aquired-ports="sudo lsof -i -P -n"
 alias list-uncommented="grep -v -e '^#' -e '^$' $1"
 alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 alias batconfig="nvim ~/.config/bat/config"
+alias update="sudo pacman -Su && paru -Syu -a --skipreview --removemake --cleanafter --nokeepsrc"
 
 # Shell integrations
 eval "$(fzf --zsh)"

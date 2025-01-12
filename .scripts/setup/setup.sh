@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-set -euo pipefail
+set -eo pipefail
 
 token=$1
 
@@ -89,9 +89,6 @@ sudo mv /tmp/nordic/kde/folders/Nordic-* /usr/share/icons
 if [ -n "$token" ]; then
 	echo "storing git secrets in gnome-keyring"
 	echo -e "protocol=https\nhost=github.com\nusername=ark-j\npassword=$token" | /usr/lib/git-core/git-credential-libsecret store
-	echo "installing berkeley mono"
-	git clone https://github.com/ark-j/berkeley-mono.git
-    sudo mv ./berkeley-mono /usr/share/fonts/	
 fi
 
 echo "refreshing font cache"
@@ -102,6 +99,6 @@ echo "setting up themes, icon, cursor, fonts"
 gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Nordic-bluish'
-gsettings set org.gnome.desktop.interface font-name 'Inter 12'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Berkeley Mono Bold 14'
+gsettings set org.gnome.desktop.interface font-name 'Inter 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 13' 
 gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'

@@ -6,7 +6,7 @@ remove=$1
 
 if [ -n "$remove" ] && [ "$remove" = "true" ]; then
 	echo "removing zot registry"
-	sudo systemctl disable zot.service
+	sudo systemctl disable --now zot.service
 	sudo rm -rf /var/lib/zot /var/log/zot /etc/zot /usr/bin/zot /etc/systemd/system/zot.service
 	exit 0
 fi
@@ -63,28 +63,30 @@ sudo tee /etc/zot/config.json > /dev/null << EOF
 		},
 		"ui": {
 			"enable": true
-		},
-		"sync": {
-			"enable": true,
-			"registries": [
-				{
-					"urls": [
-						"https://docker.io/library"
-					],
-					"content": [
-						{
-							"prefix": "**",
-							"destination": "/library"
-						}
-					],
-					"onDemand": true,
-					"tlsVerify": true
-				}
-			]
 		}
 	}
 }
 EOF
+
+# PUT this in exentions section if mirroring is desirable
+# "sync": {
+# 			"enable": true,
+# 			"registries": [
+# 				{
+# 					"urls": [
+# 						"https://docker.io/library"
+# 					],
+# 					"content": [
+# 						{
+# 							"prefix": "**",
+# 							"destination": "/library"
+# 						}
+# 					],
+# 					"onDemand": true,
+# 					"tlsVerify": true
+# 				}
+# 			]
+# 		}
 
 sudo tee /etc/systemd/system/zot.service > /dev/null << EOF
 [Unit]

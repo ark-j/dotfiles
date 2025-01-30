@@ -7,6 +7,7 @@ export CURSOR_THEME=capitaine-cursors-light
 export XCURSOR_PATH=/usr/share/icons
 export XCURSOR_SIZE=24
 export QT_QPA_PLATFORM=wayland
+export GIT_CONFIG_GLOBAL="${HOME}/.config/git/config"
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${HOME}/.local/share}/zinit/zinit.git"
@@ -86,7 +87,7 @@ alias ll="ls -lah"
 alias la="ls -ah"
 alias lg="lazygit"
 alias nv="nvim"
-alias gitconfig="nvim ~/.gitconfig"
+alias gitconfig="nvim ~/.config/git/config"
 alias aquired-ports="sudo lsof -i -P -n"
 alias list-uncommented="grep -v -e '^#' -e '^$' $1"
 alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'

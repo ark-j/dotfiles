@@ -37,7 +37,7 @@ sudo pacman -S \
     seahorse seahorse-nautilus brave-bin zen-browser-avx2-bin \
     localsend extension-manager cups logrotate ipp-usb \
     qt5-wayland qt6-wayland linux-firmware-qlogic realtime-privileges \
-    lazygit silicon bat qbittorrent sbctl sshpass tldr \
+    lazygit silicon bat qbittorrent sbctl sshpass tldr git-delta \
     --noconfirm
 
 echo "improving audio by adding realtime privileges user"

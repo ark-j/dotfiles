@@ -32,7 +32,7 @@ sudo pacman -S \
     ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig \
     noto-fonts noto-fonts-emoji noto-fonts-extra inter-font \
     adw-gtk-theme kvantum kvantum-theme-libadwaita-git \
-    papirus-icon-theme capitaine-cursors \
+    papirus-icon-theme capitaine-cursors figlet \
     kitty alacritty gnome-terminal zsh bluez-mesh \
     seahorse seahorse-nautilus brave-bin zen-browser-avx2-bin \
     localsend extension-manager cups logrotate ipp-usb \

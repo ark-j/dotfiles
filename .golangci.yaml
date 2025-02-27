@@ -10,6 +10,7 @@ run:
     - functional
   allow-parallel-runners: true
   allow-serial-runners: true
+  modules-download-mode: readonly
 
 linters:
   disable-all: true
@@ -20,12 +21,16 @@ linters:
     - errcheck
     - canonicalheader
     - errchkjson
-    - funlen
     - revive
     - ireturn
     - misspell
     - gci
     - lll
+    - sloglint
+    - ineffassign
+    - unused
+    - errname
+
 linters-settings:
   gci:
     sections:
@@ -39,5 +44,25 @@ linters-settings:
     custom-order: true
     no-lex-order: false
   lll:
-    line-length: 120
+    line-length: 80
     tab-width: 4
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - lll
+    - path: _mock\.go
+        - bodyclose
+        - staticcheck
+        - errcheck
+        - canonicalheader
+        - errchkjson
+        - revive
+        - ireturn
+        - misspell
+        - gci
+        - lll
+        - sloglint
+        - ineffassign
+        - unused

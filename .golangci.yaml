@@ -53,6 +53,7 @@ issues:
       linters:
         - lll
     - path: _mock\.go
+      linters:
         - bodyclose
         - staticcheck
         - errcheck

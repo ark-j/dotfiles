@@ -8,7 +8,6 @@ export XCURSOR_PATH=/usr/share/icons
 export XCURSOR_SIZE=24
 export QT_QPA_PLATFORM=wayland
 export GIT_CONFIG_GLOBAL="${HOME}/.config/git/config"
-export PATH=$HOME/.bin:$PATH
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${HOME}/.local/share}/zinit/zinit.git"
@@ -95,6 +94,7 @@ alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 
 alias batconfig="nvim ~/.config/bat/config"
 alias update="sudo pacman -Su && paru -Syu -a --skipreview --removemake --cleanafter --nokeepsrc"
 alias ipv4="ip addr | grep inet | grep -vE '127.0.0.1|inet6|docker0' | awk '{print \$2}' | sed 's|/24||'"
+alias nerdctl="sudo nerdctl"
 
 # Shell integrations
 eval "$(fzf --zsh)"

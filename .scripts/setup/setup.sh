@@ -46,13 +46,6 @@ sudo gpasswd -a $USER realtime
 echo "installing extra packages"
 paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
-echo "setting up nerdctl"
-mkdir -p $HOME/.bin
-chmod 700 $HOME/.bin
-cp /usr/bin/nerdctl $HOME/.bin
-sudo chown root $HOME/.bin/nerdctl
-sudo chmod +s $HOME/.bin/nerdctl
-
 echo "copying reflector config"
 sudo rm -rf /etc/xdg/reflector/reflector.conf
 sudo cp ./reflector.conf /etc/xdg/reflector/

@@ -22,7 +22,7 @@ sudo pacman -S \
     mpv vlc flameshot obs-studio drawio-desktop \
     gnome-photos nautilus-image-converter nautilus-share \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
-    docker docker-buildx pigz docker-compose fprintd pahole neovim \
+    containerd buildkit cni-plugins nerdctl pigz fprintd pahole neovim \
     paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard reflector \
     htop p7zip unzip unrar starship wireless-regdb \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
@@ -46,9 +46,12 @@ sudo gpasswd -a $USER realtime
 echo "installing extra packages"
 paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
-echo "setting up docker"
-sudo usermod -aG docker $USER
-newgrp docker
+echo "setting up nerdctl"
+mkdir -p $HOME/.bin
+chmod 700 $HOME/.bin
+cp /usr/bin/nerdctl $HOME/.bin
+sudo chown root $HOME/.bin/nerdctl
+sudo chmod +s $HOME/.bin/nerdctl
 
 echo "copying reflector config"
 sudo rm -rf /etc/xdg/reflector/reflector.conf
@@ -59,8 +62,8 @@ curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install |
 
 echo "enabling services"
 sudo systemctl enable --now \
-	docker.service \
 	containerd.service \
+	buildkit.service \
 	bluetooth.service \
 	bluetooth-mesh.service \
 	cups.service \

@@ -8,6 +8,7 @@ export XCURSOR_PATH=/usr/share/icons
 export XCURSOR_SIZE=24
 export QT_QPA_PLATFORM=wayland
 export GIT_CONFIG_GLOBAL="${HOME}/.config/git/config"
+export PATH=$HOME/.bin:$PATH
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${HOME}/.local/share}/zinit/zinit.git"

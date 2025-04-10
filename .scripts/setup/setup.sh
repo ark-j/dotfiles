@@ -59,7 +59,6 @@ chmod 700 $HOME/.bin
 cp /usr/bin/nerdctl $HOME/.bin
 sudo chown root $HOME/.bin/nerdctl
 sudo chmod +s $HOME/.bin/nerdctl
-export PATH=$HOME/.bin:$PATH
 
 echo "enabling services"
 sudo systemctl enable --now \

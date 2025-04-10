@@ -1,5 +1,6 @@
 # exports
 export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.bin"
 export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 export EDITOR="nvim"
 export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"

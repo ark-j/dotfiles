@@ -53,6 +53,14 @@ sudo cp ./reflector.conf /etc/xdg/reflector/
 echo "installing auto p state for amd"
 curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
+echo "setting up nerdctl"
+mkdir -p $HOME/.bin
+chmod 700 $HOME/.bin
+cp /usr/bin/nerdctl $HOME/.bin
+sudo chown root $HOME/.bin/nerdctl
+sudo chmod +s $HOME/.bin/nerdctl
+export PATH=$HOME/.bin:$PATH
+
 echo "enabling services"
 sudo systemctl enable --now \
 	containerd.service \

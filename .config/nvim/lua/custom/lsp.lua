@@ -168,18 +168,18 @@ M.on_attach = function()
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = args.buf })
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf })
 
-      if client.supports_method("textDocument/semanticTokens") then
+      if client:supports_method("textDocument/semanticTokens") then
         client.server_capabilities.semanticTokensProvider = nil
       end
 
       -- enable toggle of inlay hints if server supports it
       if client then
-        if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           vim.keymap.set("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }))
           end)
         end
-        if client.supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) and vim.lsp.codelens then
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) and vim.lsp.codelens then
           vim.keymap.set("n", "tc", vim.lsp.codelens.refresh, { silent = true, buffer = args.buf })
           vim.keymap.set("n", "tcd", vim.lsp.codelens.clear, { silent = true, buffer = args.buf })
         end

@@ -14,7 +14,7 @@ end
 M.format_go_imports = function(args)
   if vim.bo[args.buf].filetype == "go" then
     ---@type lsp.CodeActionParams
-    local params = vim.lsp.util.make_range_params(0, get_offset_encoding(args.buf))
+    local params = vim.lsp.util.make_range_params(0, M.get_offset_encoding(args.buf))
     params.context = {
       diagnostics = vim.diagnostic.get(args.buf),
       only = { "source.organizeImports" },

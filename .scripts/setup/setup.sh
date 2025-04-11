@@ -44,7 +44,9 @@ echo "improving audio by adding realtime privileges user"
 sudo gpasswd -a $USER realtime
 
 echo "installing extra packages"
-paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
+paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth \
+	spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware \
+	aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
 echo "copying reflector config"
 sudo rm -rf /etc/xdg/reflector/reflector.conf

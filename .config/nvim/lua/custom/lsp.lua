@@ -20,12 +20,7 @@ M.go = function()
       gopls = {
         buildFlags = { "-tags=integration unit test pact release mock" },
         completeUnimported = true,
-        analyses = {
-          shadow = true,
-          unusedvariable = true,
-          unusedwrite = true,
-          useany = true,
-        },
+        analyses = {},
         hints = {
           compositeLiteralFields = true,
           assignVariableTypes = true,
@@ -39,7 +34,7 @@ M.go = function()
           run_govulncheck = true,
         },
         vulncheck = "Imports",
-        gofumpt = true,
+        -- gofumpt = true,
       },
     },
   })

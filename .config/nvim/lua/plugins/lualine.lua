@@ -27,7 +27,9 @@ return {
             },
           },
           {
+            ---@diagnostic disable-next-line: undefined-field
             require("noice").api.status.mode.get,
+            ---@diagnostic disable-next-line: undefined-field
             cond = require("noice").api.status.mode.has,
             color = { fg = "#ff9e64" },
           },

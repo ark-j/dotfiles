@@ -54,6 +54,7 @@ M.config = {
         html = { "prettier" },
         css = { "prettier" },
         python = { "ruff" },
+        go = { "golangci-lint" },
       },
     })
     vim.api.nvim_create_autocmd("BufWritePre", {

@@ -18,7 +18,7 @@ return {
   },
 
   config = function()
-    local conf = {
+    require("telescope").setup({
       extensions = {
         fzf = {
           fuzzy = true,
@@ -35,15 +35,14 @@ return {
         layout_strategy = "horizontal_fused",
         layout_config = { width = 0.87, height = 0.8, horizontal = { preview_width = 0.55 } },
         file_ignore_patterns = {
-          ".git",
+          "/%s.git/",
           "vendor",
           "venv",
           "env",
           "node_modules",
         },
       },
-    }
-    require("telescope").setup(conf)
+    })
 
     local layout_strategies = require("telescope.pickers.layout_strategies")
     layout_strategies.horizontal_fused = function(picker, max_columns, max_lines, layout_config)
@@ -80,14 +79,9 @@ return {
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
     end, { desc = "[F]ind [N]eovim files" })
 
-    -- find files in ingored if required
+    -- find files in ignored if required
     vim.keymap.set("n", "<leader>f.", function()
-      local cwd = vim.fn.getcwd()
-      local dirs = {}
-      for _, v in ipairs(conf.defaults.file_ignore_pattern) do
-        table.insert(dirs, cwd .. "/" .. v)
-      end
-      builtin.find_files({ search_dirs = dirs })
-    end, { desc = "[F]ind in [.] ingored file patterns" })
+      builtin.find_files({ hidden = true, no_ignore = true, file_ignore_patterns = {} })
+    end, { desc = "[F]ind in [.] ignored file patterns" })
   end,
 }

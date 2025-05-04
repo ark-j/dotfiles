@@ -24,7 +24,7 @@ sudo pacman -S \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
     containerd buildkit cni-plugins nerdctl pigz fprintd pahole neovim \
     paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard reflector \
-    htop p7zip unzip unrar starship wireless-regdb \
+    htop p7zip unzip unrar starship wireless-regdb rofi dmenu \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
     ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd \
     ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd \

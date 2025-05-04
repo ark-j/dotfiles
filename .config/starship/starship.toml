@@ -17,9 +17,9 @@ $nodejs\
 $java\
 $kotlin\
 $python\
-[](fg:lavender bg:purple)\
+[](fg:lavender bg:mauve)\
 $cmd_duration\
-[ ](fg:purple)\
+[](fg:mauve)\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -106,8 +106,8 @@ style = "bg:teal"
 format = '[[($all_status$ahead_behind )](fg:base bg:blue)]($style)'
 
 [cmd_duration]
-style = "bg:purple"
-format = "[[ $duration ](fg:base bg:purple)]($style)"
+style = "bg:mauve"
+format = "[[ $duration ](fg:base bg:mauve)]($style)"
 
 [nodejs]
 symbol = ""

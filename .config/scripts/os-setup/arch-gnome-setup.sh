@@ -28,6 +28,7 @@ sudo pacman -S \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
     ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd \
     ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd \
+	virt-manager qemu-base iptables-nft nftables dnsmasq linux-lts-headers \
     ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common \
     ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig \
     noto-fonts noto-fonts-emoji noto-fonts-extra inter-font \
@@ -62,6 +63,10 @@ cp /usr/bin/nerdctl $HOME/.bin
 sudo chown root $HOME/.bin/nerdctl
 sudo chmod +s $HOME/.bin/nerdctl
 
+echo "setting up libvirt"
+sudo usermod -aG libvirt $USER
+sudo gpasswd -a $USER kvm
+
 echo "enabling services"
 sudo systemctl enable --now \
 	containerd.service \
@@ -70,7 +75,8 @@ sudo systemctl enable --now \
 	bluetooth-mesh.service \
 	cups.service \
 	reflector.service \
-	sshd.service
+	sshd.service \
+	libvirtd.service
 
 echo "setting up dotfiles"
 cd ~/dotfiles && stow .

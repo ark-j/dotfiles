@@ -1,6 +1,6 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("i", "jj", "<Esc>")
--- vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { silent = true })
+vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { silent = true })
 vim.keymap.set({ "n", "i" }, "<C-c>", "<cmd>bd!<cr>", { silent = true })
 
 -- Diagnostic keymaps

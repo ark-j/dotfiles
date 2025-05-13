@@ -3,30 +3,48 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     { "williamboman/mason.nvim", config = true },
-    "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     -- required for yaml companion
     "someone-stole-my-name/yaml-companion.nvim",
-    { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
-    {
-      "folke/lazydev.nvim",
-      ft = "lua",
-      dependencies = { "Bilal2453/luvit-meta" },
-      opts = {
-        library = {
-          { path = "luvit-meta/library", words = { "vim%.uv" } },
-        },
-      },
-    },
     "b0o/SchemaStore.nvim",
   },
   config = function()
-    require("custom.lsp").setup()
-    require("lsp_lines").setup()
-    vim.diagnostic.config({
-      virtual_text = false,
-      virtual_lines = true,
+    require("mason").setup({
+      PATH = "skip",
+      ui = {
+        border = "rounded",
+        icons = {
+          package_pending = " ",
+          package_installed = " ",
+          package_uninstalled = " ",
+        },
+      },
+      max_concurrent_installers = 5,
     })
+
+    require("custom.lsp")
+
+    vim.diagnostic.config({
+      severity_sort = true,
+      float = { border = "rounded", source = "if_many" },
+      virtual_lines = true,
+      virtual_text = false,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = " ",
+          [vim.diagnostic.severity.WARN] = "󰀪 ",
+          [vim.diagnostic.severity.INFO] = " ",
+          [vim.diagnostic.severity.HINT] = " ",
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.HINT] = "",
+          [vim.diagnostic.severity.INFO] = "",
+        },
+      },
+    })
+
     vim.keymap.set("n", "<leader>l", function()
       local config = vim.diagnostic.config() or {}
       if config.virtual_text then

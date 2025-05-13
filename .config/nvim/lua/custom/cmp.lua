@@ -62,6 +62,7 @@ M.setup = function()
   local luasnip = require("luasnip")
   luasnip.config.setup({})
 
+  ---@diagnostic disable-next-line
   cmp.setup({
     snippet = {
       expand = function(args)
@@ -107,7 +108,6 @@ M.setup = function()
       format = M.lspkind.format,
     },
     sources = {
-      { name = "lazydev", group_index = 0 },
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "path" },

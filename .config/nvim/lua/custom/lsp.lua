@@ -281,9 +281,10 @@ vim.lsp.config.yamlls = require("yaml-companion").setup({
     settings = {
       redhat = { telemetry = { enabled = false } },
       yaml = {
+        yamlVersion = 1.2,
         validate = true,
-        format = { enable = true },
         hover = true,
+        format = { enable = true },
         schemaStore = {
           enable = true,
           url = "https://www.schemastore.org/api/json/catalog.json",

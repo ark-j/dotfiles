@@ -57,6 +57,49 @@ echo "installing auto p state for amd"
 curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
 echo "setting up nerdctl"
+sudo mkdir /etc/containerd
+sudo tee /etc/containerd/config.toml > /dev/null <<EOF
+version = 3
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+	SystemdCgroup = true
+	snapshotter = "overlayfs"
+[plugins.'io.containerd.cri.v1.images']
+	snapshotter = "overlayfs"
+	use_local_image_pull = true
+	max_concurrent_downloads = 5
+EOF
+
+sudo mkdir /etc/buildkit
+sudo tee /etc/buildkit/buildkitd.toml > /dev/null <<EOF
+debug = false
+[log]
+	format = "json"
+[worker.oci]
+	enabled = false
+	max-parallelism = 4
+	rootless = false
+[worker.containerd]
+	address = "/run/containerd/containerd.sock"
+	enabled = true
+	namespace = "k8s.io"
+	gc = true
+	[worker.containerd.runtime]
+		name = "io.containerd.runc.v2"
+		path = "/usr/bin/containerd-shim-runc-v2"
+		options = { BinaryName = "runc" }
+EOF
+
+sudo mkdir /etc/nerdctl
+sudo tee /etc/nerdctl/nerdctl.toml > /dev/null <<EOF
+debug				= false
+debug_full			= false
+experimental		= true
+namespace			= "k8s.io"
+cgroup_manager		= "systemd"
+snapshotter			= "overlayfs"
+insecure_registry	= true
+EOF
+
 mkdir -p $HOME/.bin
 chmod 700 $HOME/.bin
 cp /usr/bin/nerdctl $HOME/.bin

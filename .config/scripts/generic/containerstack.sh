@@ -47,7 +47,7 @@ if [ "$runtime" = "crun" ]; then
 	echo "installed crun version ${CRUN_VERSION}"
 else
 	# install runc
-	echo "downloading crun"
+	echo "downloading runc"
 	RUNC_VERSION=$(curl -sS https://api.github.com/repos/opencontainers/runc/releases/latest | grep '"tag_name":' | awk '{gsub(/[",]/, "", $2); print $2}')
 	RUNC_URL="https://github.com/opencontainers/runc/releases/download/${RUNC_VERSION}/runc.${ARCH}"
 	echo "------------------"

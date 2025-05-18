@@ -1,0 +1,8 @@
+version = 3
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  SystemdCgroup = true
+  snapshotter = "overlayfs"
+[plugins.'io.containerd.cri.v1.images']
+  snapshotter = "overlayfs"
+  use_local_image_pull = true
+  max_concurrent_downloads = 5

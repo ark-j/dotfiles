@@ -2,114 +2,54 @@
 
 set -eo pipefail
 
-remove=$1
+while getopts "hru:p:" flag; do
+	case $flag in
+		h)
+			echo "-r uninstall the zot cleaningup everything"
+			echo "-u username for htpasswd"
+			echo "-p password for htpasswd"
+			exit 0
+		;;
+		r) 
+			sudo systemctl disable --now zot.service
+			sudo rm -rf /var/lib/zot /var/log/zot /etc/zot /usr/bin/zot /usr/lib/systemd/system/zot.service
+			echo "zot registry removed"
+			exit 0
+		;;
+		u) 
+			USER=$OPTARG
+		;;
+		p) 
+			PASSWD=$OPTARG
+		;;
+	esac
+done
 
-if [ -n "$remove" ] && [ "$remove" = "true" ]; then
-	echo "removing zot registry"
-	sudo systemctl disable --now zot.service
-	sudo rm -rf /var/lib/zot /var/log/zot /etc/zot /usr/bin/zot /etc/systemd/system/zot.service
-	exit 0
+
+# check if username and password provided for registry
+if [ -z "$USER" ] || [ -z "$PASSWD" ]; then
+	echo "user and password required"
+	exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "${0}")" && pwd)"
+OS=$(uname | awk '{print tolower($0)}')
+ARCH=$(uname -m)
+if [ "$ARCH" == "x86_64" ]; then
+    ARCH="amd64"
 fi
 
 echo "downloading zot"
-curl -L -o zot https://github.com/project-zot/zot/releases/download/v2.1.2/zot-linux-amd64
-sudo mv zot /usr/bin
-sudo chmod +x /usr/bin/zot
-sudo mkdir /etc/zot
-sudo mkdir -p /var/lib/zot
-sudo mkdir -p /var/log/zot
+ZOT_VERSION=$(curl -sS https://api.github.com/repos/project-zot/zot/releases/latest | grep '"tag_name":' | awk '{gsub(/[",]/, "", $2); print $2}')
+ZOT_URL="https://github.com/project-zot/zot/releases/download/${ZOT_VERSION}/zot-${OS}-${ARCH}"
+curl -L -o /tmp/zot "$ZOT_URL"
+sudo install -vDm755 /tmp/zot /usr/bin/zot
+sudo install -vdm755 /var/lib/zot /var/log/zot
+htpasswd -bnB "$USER" "$PASSWD" > /tmp/htpasswd
+sudo install -vDm644 /tmp/htpasswd /etc/zot/htpasswd
+sudo install -vDm644 "$SCRIPT_DIR"/config/zot/config.json /etc/zot/config.json
+sudo install -vDm644 "$SCRIPT_DIR"/config/zot/zot.service /usr/lib/systemd/system/zot.service
+sudo systemctl enable --now zot.service
+rm -rf /tmp/htpasswd
 
-sudo chown root:root /usr/bin/zot
-sudo chown root:root /etc/zot
-
-sudo htpasswd -bnB jayesh hyperbeast | sudo tee /etc/zot/htpasswd > /dev/null
-sudo tee /etc/zot/config.json > /dev/null << EOF
-{
-	"distSpecVersion": "1.1.0",
-	"scheduler": {
-		"numWorkers": 3
-	},
-	"storage": {
-		"dedupe": true,
-		"remoteCache": false,
-		"rootDirectory": "/var/lib/zot",
-		"gc": true
-	},
-	"http": {
-		"address": "0.0.0.0",
-		"port": "5000",
-		"compat": [
-			"docker2s2"
-		],
-		"realm": "zot",
-		"auth": {
-			"htpasswd": {
-				"path": "/etc/zot/htpasswd"
-			},
-			"failDelay": 5
-		}
-	},
-	"log": {
-		"level": "info",
-		"output": "/var/log/zot/zot.log",
-		"audit": "/var/log/zot/zot-audit.log"
-	},
-	"extensions": {
-		"search": {
-			"enable": true,
-			"cve": {
-				"updateInterval": "6h"
-			}
-		},
-		"ui": {
-			"enable": true
-		}
-	}
-}
-EOF
-
-# PUT this in exentions section if mirroring is desirable
-# "sync": {
-# 			"enable": true,
-# 			"registries": [
-# 				{
-# 					"urls": [
-# 						"https://docker.io/library"
-# 					],
-# 					"content": [
-# 						{
-# 							"prefix": "**",
-# 							"destination": "/library"
-# 						}
-# 					],
-# 					"onDemand": true,
-# 					"tlsVerify": true
-# 				}
-# 			]
-# 		}
-
-sudo tee /etc/systemd/system/zot.service > /dev/null << EOF
-[Unit]
-Description=OCI Distribution Registry
-Documentation=https://zotregistry.dev/
-After=network.target auditd.service local-fs.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/zot serve /etc/zot/config.json
-Restart=on-failure
-User=root
-Group=root
-LimitNOFILE=500000
-MemoryHigh=12G
-MemoryMax=16G
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl start zot.service
-
-sleep 10
-sudo chmod 644 -R /var/log/zot/*
-sudo chmod 644 -R /var/lib/zot/*
+echo "zot version ${ZOT_VERSION} is running on port 5235"

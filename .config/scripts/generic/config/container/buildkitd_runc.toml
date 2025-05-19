@@ -1,0 +1,16 @@
+debug = false
+[log]
+	format = "json"
+[worker.oci]
+	enabled = false
+	max-parallelism = 4
+	rootless = false
+[worker.containerd]
+	address = "/run/containerd/containerd.sock"
+	enabled = true
+	namespace = "k8s.io"
+	gc = true
+	[worker.containerd.runtime]
+		name = "io.containerd.runc.v2"
+		path = "/usr/bin/containerd-shim-runc-v2"
+		options = { BinaryName = "runc" }

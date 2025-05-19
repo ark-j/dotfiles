@@ -1,0 +1,18 @@
+[Unit]
+Description=OCI Distribution Registry
+Documentation=https://zotregistry.dev/
+After=network.target auditd.service local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/zot serve /etc/zot/config.json
+Restart=on-failure
+User=root
+Group=root
+LimitNOFILE=500000
+MemoryHigh=12G
+MemoryMax=16G
+
+[Install]
+WantedBy=multi-user.target
+

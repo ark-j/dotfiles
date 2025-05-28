@@ -100,11 +100,8 @@ snapshotter			= "overlayfs"
 insecure_registry	= true
 EOF
 
-mkdir -p $HOME/.bin
-chmod 700 $HOME/.bin
-cp /usr/bin/nerdctl $HOME/.bin
-sudo chown root $HOME/.bin/nerdctl
-sudo chmod +s $HOME/.bin/nerdctl
+install -dm700 $HOME/.bin
+sudo install -o root -m 4755 "/usr/bin/nerdctl" "$HOME/.bin/"
 
 echo "setting up libvirt"
 sudo usermod -aG libvirt $USER
@@ -132,7 +129,7 @@ chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
 
 echo "installing kind"
-../generic/install_kind.sh
+../generic/kind.sh
 
 echo "configuring folder theme"
 git clone https://github.com/EliverLara/Nordic.git /tmp/nordic
@@ -151,6 +148,4 @@ echo "setting up themes, icon, cursor, fonts"
 gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Nordic-bluish'
-gsettings set org.gnome.desktop.interface font-name 'Inter 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 13' 
-gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'

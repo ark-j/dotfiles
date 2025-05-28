@@ -8,7 +8,6 @@ if [ "$SYSTEM_ARCH" == "x86_64" ]; then
 fi
 if [ -n "$KIND_VERSION" ]; then
     curl -Lo /tmp/kind "https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION}/kind-${SYSTEM_NAME}-${SYSTEM_ARCH}"
-    chmod +x /tmp/kind
-    sudo mv /tmp/kind /usr/local/bin
+    sudo install -Dm755 /tmp/kind /usr/local/bin
     echo "installed kind version ${KIND_VERSION}-${SYSTEM_NAME}-${SYSTEM_ARCH}"
 fi

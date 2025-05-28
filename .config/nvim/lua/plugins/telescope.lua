@@ -2,17 +2,12 @@
 return {
   "nvim-telescope/telescope.nvim",
   event = "VimEnter",
-  branch = "0.1.x",
+  -- branch = "0.1.x",
+  branch = "master",
 
   dependencies = {
     "nvim-lua/plenary.nvim",
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      cond = function()
-        return vim.fn.executable("make") == 1
-      end,
-    },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
   },
@@ -44,6 +39,9 @@ return {
       },
     })
 
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("ui-select")
+
     local layout_strategies = require("telescope.pickers.layout_strategies")
     layout_strategies.horizontal_fused = function(picker, max_columns, max_lines, layout_config)
       local layout = layout_strategies.horizontal(picker, max_columns, max_lines, layout_config)
@@ -54,9 +52,6 @@ return {
       layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "┴", "╰" }
       return layout
     end
-
-    pcall(require("telescope").load_extension, "fzf")
-    pcall(require("telescope").load_extension, "ui-select")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>fh", builtin.help_tags)

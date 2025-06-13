@@ -121,8 +121,9 @@ sudo systemctl enable --now \
 echo "setting up dotfiles"
 cd ~/dotfiles && stow .
 
-echo "installing tmux package manager"
+echo "installing tmux package manager and plugins"
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+~/.config/tmux/plugins/tpm/bin/install_plugins
 
 echo "setting up zsh as default"
 chsh -s $(which zsh)
@@ -143,6 +144,9 @@ fi
 echo "refreshing font cache"
 sudo fc-cache -fv
 fc-cache -fv
+
+echo "copying wallpapers"
+cp -r ./wallpapers/* ~/.local/share/backgrounds/
 
 echo "setting up themes, icon, cursor, fonts"
 gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'

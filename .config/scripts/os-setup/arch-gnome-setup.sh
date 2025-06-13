@@ -45,7 +45,7 @@ echo "improving audio by adding realtime privileges user"
 sudo gpasswd -a $USER realtime
 
 echo "installing extra packages"
-paru -Sa planify gnome-shell-extension-pop-shell-git nautilus-bluetooth \
+paru -Sa gnome-shell-extension-pop-shell-git nautilus-bluetooth \
 	spotify ast-firmware upd72020x-fw wd719x-firmware wd719x-firmware \
 	aic94xx-firmware --skipreview --removemake --cleanafter --nokeepsrc --noconfirm
 
@@ -56,8 +56,9 @@ sudo cp ./reflector.conf /etc/xdg/reflector/
 echo "installing auto p state for amd"
 curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
+
 echo "setting up nerdctl"
-sudo mkdir /etc/containerd
+sudo mkdir -p /etc/containerd /etc/buildkit /etc/nerdctl
 sudo tee /etc/containerd/config.toml > /dev/null <<EOF
 version = 3
 [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
@@ -69,7 +70,6 @@ version = 3
 	max_concurrent_downloads = 5
 EOF
 
-sudo mkdir /etc/buildkit
 sudo tee /etc/buildkit/buildkitd.toml > /dev/null <<EOF
 debug = false
 [log]
@@ -89,7 +89,6 @@ debug = false
 		options = { BinaryName = "runc" }
 EOF
 
-sudo mkdir /etc/nerdctl
 sudo tee /etc/nerdctl/nerdctl.toml > /dev/null <<EOF
 debug				= false
 debug_full			= false

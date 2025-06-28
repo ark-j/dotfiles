@@ -107,6 +107,8 @@ linters:
           disabled: true
         - name: exported
           disabled: true
+        - name: confusing-naming
+          disabled: true
 
 formatters:
   enable:

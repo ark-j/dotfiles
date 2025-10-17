@@ -106,6 +106,7 @@ style = "bg:teal"
 format = '[[($all_status$ahead_behind )](fg:base bg:blue)]($style)'
 
 [cmd_duration]
+disabled = false
 style = "bg:mauve"
 format = "[[ $duration ](fg:base bg:mauve)]($style)"
 

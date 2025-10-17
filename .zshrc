@@ -10,6 +10,9 @@ export XCURSOR_SIZE=24
 export QT_QPA_PLATFORM=wayland
 export GIT_CONFIG_GLOBAL="$HOME/.config/git/config"
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
+if [ "$TERM" = "xterm-ghostty" ]; then
+	export TERM=xterm-256color
+fi
 
 # FZF catppuccin
 export FZF_DEFAULT_OPTS=" \

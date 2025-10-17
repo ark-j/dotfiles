@@ -24,7 +24,7 @@ sudo pacman -S \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
     containerd buildkit cni-plugins nerdctl pigz fprintd pahole neovim \
     paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard reflector \
-    htop p7zip unzip unrar starship wireless-regdb rofi dmenu \
+    btop p7zip unzip unrar starship wireless-regdb rofi dmenu \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
     ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd \
     ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd \
@@ -152,3 +152,19 @@ gsettings set org.gnome.desktop.interface cursor-theme 'capitaine-cursors-light'
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Nordic-bluish'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 13' 
+
+read -p "Do you want performance for ext4? (y/n): " choice
+case "$choice" in
+  y|Y|yes|YES )
+	echo "increasing performance of ext4 system if detected"
+	sudo ./ext4-perf.sh
+	break
+    ;;
+  n|N|no|NO )
+    echo "Exiting..."
+    exit 0
+    ;;
+  * )
+    echo "Invalid input. Please enter y or n."
+    ;;
+esac

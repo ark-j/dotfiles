@@ -22,13 +22,13 @@ sudo pacman -S \
     mpv vlc flameshot obs-studio drawio-desktop \
     gnome-photos nautilus-image-converter nautilus-share \
     pnpm npm go rust python-pip luarocks zig tree-sitter \
-    containerd buildkit cni-plugins nerdctl pigz fprintd pahole neovim \
+	docker docker-buildx containerd docker-compose pigz fprintd pahole neovim \
     paru tmux fzf ripgrep fd stow lsd rsync wl-clipboard reflector \
     btop p7zip unzip unrar starship wireless-regdb rofi dmenu \
     otf-geist-mono-nerd otf-hasklig-nerd ttf-agave-nerd \
     ttf-bitstream-vera-mono-nerd ttf-fantasque-nerd \
     ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd \
-	virt-manager qemu-base iptables-nft nftables dnsmasq linux-lts-headers \
+	qemu-base virt-install libvirt dnsmasq iptables-nft nftables linux-lts-headers \
     ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common \
     ttf-nerd-fonts-symbols-mono noto-color-emoji-fontconfig \
     noto-fonts noto-fonts-emoji noto-fonts-extra inter-font \
@@ -39,7 +39,7 @@ sudo pacman -S \
     localsend extension-manager cups logrotate ipp-usb \
     qt5-wayland qt6-wayland linux-firmware-qlogic realtime-privileges \
     lazygit silicon bat qbittorrent sbctl sshpass tldr git-delta \
-    --noconfirm
+	--noconfirm
 
 echo "improving audio by adding realtime privileges user"
 sudo gpasswd -a $USER realtime
@@ -56,60 +56,25 @@ sudo cp ./reflector.conf /etc/xdg/reflector/
 echo "installing auto p state for amd"
 curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
 
-
-echo "setting up nerdctl"
-sudo mkdir -p /etc/containerd /etc/buildkit /etc/nerdctl
-sudo tee /etc/containerd/config.toml > /dev/null <<EOF
-version = 3
-[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
-	SystemdCgroup = true
-	snapshotter = "overlayfs"
-[plugins.'io.containerd.cri.v1.images']
-	snapshotter = "overlayfs"
-	use_local_image_pull = true
-	max_concurrent_downloads = 5
-EOF
-
-sudo tee /etc/buildkit/buildkitd.toml > /dev/null <<EOF
-debug = false
-[log]
-	format = "json"
-[worker.oci]
-	enabled = false
-	max-parallelism = 4
-	rootless = false
-[worker.containerd]
-	address = "/run/containerd/containerd.sock"
-	enabled = true
-	namespace = "k8s.io"
-	gc = true
-	[worker.containerd.runtime]
-		name = "io.containerd.runc.v2"
-		path = "/usr/bin/containerd-shim-runc-v2"
-		options = { BinaryName = "runc" }
-EOF
-
-sudo tee /etc/nerdctl/nerdctl.toml > /dev/null <<EOF
-debug				= false
-debug_full			= false
-experimental		= true
-namespace			= "k8s.io"
-cgroup_manager		= "systemd"
-snapshotter			= "overlayfs"
-insecure_registry	= true
-EOF
-
-install -dm700 $HOME/.bin
-sudo install -o root -m 4755 "/usr/bin/nerdctl" "$HOME/.bin/"
-
 echo "setting up libvirt"
-sudo usermod -aG libvirt $USER
-sudo gpasswd -a $USER kvm
+sudo virsh net-start default
+sudo virsh net-autostart default
+
+echo "setting up docker"
+sudo tee /etc/modprobe.d/overlay.conf > /dev/null <<EOF
+# Used by docker to avoid issue:
+# Not using native diff for overlay2, this may cause degraded performance for building images:
+# kernel has CONFIG_OVERLAY_FS_REDIRECT_DIR enabled
+options overlay metacopy=off
+options overlay redirect_dir=off
+EOF
+sudo groupadd docker
+sudo usermod -aG docker $USER
 
 echo "enabling services"
 sudo systemctl enable --now \
-	containerd.service \
-	buildkit.service \
+	docker.service \
+	docker.socket \
 	bluetooth.service \
 	bluetooth-mesh.service \
 	cups.service \

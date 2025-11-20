@@ -3,13 +3,7 @@ vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { silent = true })
 vim.keymap.set({ "n", "i" }, "<C-c>", "<cmd>bd!<cr>", { silent = true })
 
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", function()
-  vim.diagnostic.jump({ count = -1, float = true })
-end, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", function()
-  vim.diagnostic.jump({ count = 1, float = true })
-end, { desc = "Go to next [D]iagnostic message" })
+-- Diagnostic keymaps [d - prevous diagnostic, ]d - next diagnostic are already set in nvim 0.11+
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
@@ -25,10 +19,10 @@ vim.keymap.set("v", "p", '"_dP', { desc = "after yanking something it keeps in t
 -- nvim tree binding
 vim.keymap.set("n", "<leader>ee", "<Cmd>NvimTreeToggle<CR>", { desc = "toggle nvim tree expolorer" })
 vim.keymap.set(
-  "n",
-  "<leader>ef",
-  "<Cmd>NvimTreeFindFile<CR>",
-  { desc = "open file focusing it and opening folder if neccessary" }
+	"n",
+	"<leader>ef",
+	"<Cmd>NvimTreeFindFile<CR>",
+	{ desc = "open file focusing it and opening folder if neccessary" }
 )
 
 -- todo comments toggle
@@ -46,11 +40,3 @@ vim.keymap.set("v", ">", ">gv", { desc = "indent next keeping in visual mode" })
 -- move test up or down in visual mode
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "indent next keeping in visual mode" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "indent next keeping in visual mode" })
-
--- snapshots
-vim.keymap.set("v", "<leader>cs", function()
-  require("nvim-silicon").clip()
-end, { desc = "copy screenshot to clipboard", silent = true })
-vim.keymap.set("v", "<leader>cc", function()
-  require("nvim-silicon").file()
-end, { desc = "save screenshot as file", silent = true })

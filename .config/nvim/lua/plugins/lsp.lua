@@ -4,8 +4,6 @@ return {
 	dependencies = {
 		{ "williamboman/mason.nvim", config = true },
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		-- required for yaml companion
-		"someone-stole-my-name/yaml-companion.nvim",
 		"b0o/SchemaStore.nvim",
 	},
 	config = function()

@@ -68,53 +68,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
--- zls start
-vim.lsp.config.zls = {
-	cmd = { "zls" },
-	filetypes = { "zig", "zir" },
-	root_markers = { "zls.json", "build.zig", ".git" },
-	workspace_required = false,
-	capabilities = capabilities,
-}
--- zls end
+vim.lsp.config("zls", { capabilities = capabilities })
+vim.lsp.config("templ", { capabilities = capabilities })
+vim.lsp.config("taplo", { capabilities = capabilities })
 
--- gopls start
-local mod_cache = nil
-
----@param fname string
----@return string?
-local function get_root(fname)
-	if mod_cache and fname:sub(1, #mod_cache) == mod_cache then
-		local clients = vim.lsp.get_clients({ name = "gopls" })
-		if #clients > 0 then
-			return clients[#clients].config.root_dir
-		end
-	end
-	return vim.fs.root(fname, { "go.work", "go.mod", ".git" })
-end
-
-vim.lsp.config.gopls = {
-	cmd = { "gopls" },
-	filetypes = { "go", "gomod", "gowork", "gotmpl" },
-	root_dir = function(bufnr, on_dir)
-		local fname = vim.api.nvim_buf_get_name(bufnr)
-		-- see: https://github.com/neovim/nvim-lspconfig/issues/804
-		if mod_cache then
-			on_dir(get_root(fname))
-			return
-		end
-		local cmd = { "go", "env", "GOMODCACHE" }
-		vim.system(cmd, { text = true }, function(output)
-			if output.code == 0 then
-				if output.stdout then
-					mod_cache = vim.trim(output.stdout)
-				end
-				on_dir(get_root(fname))
-			else
-				vim.notify(("[gopls] cmd failed with code %d: %s\n%s"):format(output.code, cmd, output.stderr))
-			end
-		end)
-	end,
+vim.lsp.config("gopls", {
 	capabilities = capabilities,
 	settings = {
 		gopls = {
@@ -136,31 +94,9 @@ vim.lsp.config.gopls = {
 			vulncheck = "Imports",
 		},
 	},
-}
--- gopls end
+})
 
--- templ start
-vim.lsp.config.templ = {
-	cmd = { "templ", "lsp" },
-	filetypes = { "templ" },
-	root_markers = { "go.work", "go.mod", ".git" },
-	capabilities = capabilities,
-}
--- templ end
-
--- pyright start
-vim.lsp.config.pyright = {
-	cmd = { "pyright-langserver", "--stdio" },
-	filetypes = { "python" },
-	root_markers = {
-		"pyproject.toml",
-		"setup.py",
-		"setup.cfg",
-		"requirements.txt",
-		"Pipfile",
-		"pyrightconfig.json",
-		".git",
-	},
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
 	settings = {
 		pyright = {
@@ -174,23 +110,9 @@ vim.lsp.config.pyright = {
 			},
 		},
 	},
-}
--- pyright end
+})
 
--- luals start
-vim.lsp.config.luals = {
-	cmd = { "lua-language-server" },
-	filetypes = { "lua" },
-	root_markers = {
-		".luarc.json",
-		".luarc.jsonc",
-		".luacheckrc",
-		".stylua.toml",
-		"stylua.toml",
-		"selene.toml",
-		"selene.yml",
-		".git",
-	},
+vim.lsp.config("luals", {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -223,17 +145,9 @@ vim.lsp.config.luals = {
 			},
 		},
 	},
-}
--- luals end
+})
 
--- jsonls start
-vim.lsp.config.jsonls = {
-	cmd = { "vscode-json-language-server", "--stdio" },
-	filetypes = { "json", "jsonc" },
-	init_options = {
-		provideFormatter = true,
-	},
-	root_markers = { ".git" },
+vim.lsp.config("jsonls", {
 	capabilities = capabilities,
 	settings = {
 		json = {
@@ -241,65 +155,24 @@ vim.lsp.config.jsonls = {
 			validate = { enable = true },
 		},
 	},
-}
--- jsonls end
+})
 
--- yamlls start
-vim.lsp.config.yamlls = require("yaml-companion").setup({
-	builtin_matchers = {
-		kubernetes = { enabled = true },
-	},
-	schemas = {
-		{
-			name = "Argo CD Application",
-			uri = "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json",
-		},
-		{
-			name = "SealedSecret",
-			uri = "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json",
-		},
-		{
-			name = "Kustomization",
-			uri = "https://json.schemastore.org/kustomization.json",
-		},
-		{
-			name = "GitHub Workflow",
-			uri = "https://json.schemastore.org/github-workflow.json",
-		},
-	},
-
-	lspconfig = {
-		cmd = { "yaml-language-server", "--stdio" },
-		filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-		root_markers = { ".git" },
-		capabilities = capabilities,
-		settings = {
-			redhat = { telemetry = { enabled = false } },
-			yaml = {
-				yamlVersion = 1.2,
-				validate = true,
-				hover = true,
-				format = { enable = true },
-				schemaStore = {
-					enable = true,
-					url = "https://www.schemastore.org/api/json/catalog.json",
-				},
-				schemaDownload = { enable = true },
-				schemas = {},
+vim.lsp.config("yamlls", {
+	capabilities = capabilities,
+	settings = {
+		redhat = { telemetry = { enabled = false } },
+		yaml = {
+			yamlVersion = 1.2,
+			validate = true,
+			hover = true,
+			format = { enable = true },
+			schemaStore = {
+				enable = true,
+				url = "https://www.schemastore.org/api/json/catalog.json",
 			},
+			schemas = {},
 		},
 	},
 })
-require("telescope").load_extension("yaml_schema")
--- yamlls end
-
--- taplo start
-vim.lsp.config.taplo = {
-	cmd = { "taplo", "lsp", "stdio" },
-	filetypes = { "toml" },
-	root_markers = { ".taplo.toml", "taplo.toml", ".git" },
-	capabilities = capabilities,
-}
--- taplo end
 
 vim.lsp.enable({ "luals", "pyright", "gopls", "templ", "taplo", "jsonls", "yamlls", "zls" })

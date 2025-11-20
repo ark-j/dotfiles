@@ -131,6 +131,8 @@ formatters:
       tab-len: 4
       shorten-comments: true
       chain-split-dots: true
+    gofumpt:
+      extra-rules: true
   exclusions:
     generated: strict
 

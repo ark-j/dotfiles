@@ -13,7 +13,7 @@ return {
 					enter = true,
 				},
 				cmdline_popup = {
-					border = { style = "bold" },
+					border = { style = "rounded" },
 				},
 			},
 			lsp = {

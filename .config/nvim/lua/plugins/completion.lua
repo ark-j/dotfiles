@@ -13,6 +13,7 @@ return {
 		},
 		completion = {
 			menu = {
+				border = "rounded",
 				draw = {
 					columns = {
 						{ "source_name", gap = 1 },
@@ -31,12 +32,12 @@ return {
 					},
 				},
 			},
-			documentation = { auto_show = true, auto_show_delay_ms = 500 },
+			documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded" } },
 		},
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
-		signature = { enabled = true },
+		signature = { enabled = true, window = { border = "rounded" } },
 		fuzzy = { implementation = "rust" },
 	},
 	opts_extend = { "sources.default" },

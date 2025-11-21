@@ -15,7 +15,7 @@ vim.opt.smartcase = true -- enable smartcase
 vim.opt.signcolumn = "yes" -- enable signcolumn on by default
 vim.opt.updatetime = 200 --decrease update time
 vim.opt.timeoutlen = 300 -- Decrease mapped sequence wait time
-vim.o.winborder = "bold"
+-- vim.o.winborder = "rounded"
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true

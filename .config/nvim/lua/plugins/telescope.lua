@@ -45,14 +45,10 @@ return {
 		layout_strategies.horizontal_fused = function(picker, max_columns, max_lines, layout_config)
 			local layout = layout_strategies.horizontal(picker, max_columns, max_lines, layout_config)
 			layout.results.height = layout.results.height + 1
-			layout.results.borderchars = { "━", "┃", "━", "┃", "┏", "┳", "┫", "┣" }
 			layout.preview = layout.preview or {}
-			layout.preview.borderchars = { "━", "┃", "━", " ", "━", "┓", "┛", "━" }
-			layout.prompt.borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┻", "┗" }
-			-- layout.results.borderchars = { "═", "║", "═", "║", "╔", "╦", "╣", "╠" }
-			-- layout.preview = layout.preview or {}
-			-- layout.preview.borderchars = { "═", "║", "═", " ", "═", "╗", "╝", "═" }
-			-- layout.prompt.borderchars = { "═", "║", "═", "║", "╔", "╗", "╩", "╚" }
+			layout.results.borderchars = { "─", "│", "─", "│", "╭", "┬", "┤", "├" }
+			layout.preview.borderchars = { "─", "│", "─", " ", "─", "╮", "╯", "─" }
+			layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "┴", "╰" }
 			return layout
 		end
 

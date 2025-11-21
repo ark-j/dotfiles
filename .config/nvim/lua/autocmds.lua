@@ -14,10 +14,3 @@ vim.api.nvim_create_autocmd("ExitPre", {
 	command = "set guicursor=a:blinkon250-ver100",
 	desc = "Set cursor back to beam when leaving Neovim.",
 })
-
--- sets all things on bold Boom!
-vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter", "WinEnter" }, {
-	group = vim.api.nvim_create_augroup("text-bold", { clear = true }),
-	command = "syntax match BoldText /./",
-	desc = "set all to bold",
-})

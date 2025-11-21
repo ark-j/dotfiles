@@ -112,7 +112,7 @@ vim.lsp.config("pyright", {
 	},
 })
 
-vim.lsp.config("luals", {
+vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -175,4 +175,4 @@ vim.lsp.config("yamlls", {
 	},
 })
 
-vim.lsp.enable({ "luals", "pyright", "gopls", "templ", "taplo", "jsonls", "yamlls", "zls" })
+vim.lsp.enable({ "lua_ls", "pyright", "gopls", "templ", "taplo", "jsonls", "yamlls", "zls" })

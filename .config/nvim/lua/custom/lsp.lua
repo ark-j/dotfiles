@@ -76,8 +76,10 @@ vim.lsp.config("gopls", {
 	capabilities = capabilities,
 	settings = {
 		gopls = {
-			-- semanticTokens = true,
-			buildFlags = { "-tags=integration unit test pact release mock" },
+			-- exclude uncessary dirs
+			directoryFlags = { "-vendor", "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+			-- vendor mode has problem with GD in external deps so -mod=mod is required
+			buildFlags = { "-tags=integration unit test pact release mock", "-mod=mod" },
 			completeUnimported = true,
 			hints = {
 				compositeLiteralFields = true,

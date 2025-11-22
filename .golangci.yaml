@@ -44,23 +44,6 @@ linters:
         - "-ST1020"
         - "-ST1021"
         - "-ST1022"
-
-        ##### TODO: fix and enable these
-        # 4 occurrences.
-        # Use fmt.Fprintf(x, ...) instead of x.Write(fmt.Sprintf(...)) https://staticcheck.dev/docs/checks#QF1012
-        - "-QF1012"
-        # 6 occurrences.
-        # Apply De Morgan’s law https://staticcheck.dev/docs/checks#QF1001
-        - "-QF1001"
-        # 10 occurrences.
-        # Convert if/else-if chain to tagged switch https://staticcheck.dev/docs/checks#QF1003
-        - "-QF1003"
-
-        ##### These have been vetted to be disabled.
-        # 55 occurrences. Omit embedded fields from selector expression https://staticcheck.dev/docs/checks#QF1008
-        # Usefulness is questionable.
-        - "-QF1008"
-
     revive:
       enable-all-rules: true
       rules:
@@ -101,18 +84,18 @@ linters:
         - name: flag-parameter
           # 52 occurrences. Not sure if this is valuable.
           disabled: true
-        - name: unused-parameter
-          # 505 occurrences. A lot of work for a marginal improvement.
-          disabled: true
         - name: unused-receiver
           # 31 occurrences. Ibid.
-          disabled: true
-        - name: add-constant
-          # 2605 occurrences. Kind of useful in itself, but unacceptable amount of effort to fix
           disabled: true
         - name: exported
           disabled: true
         - name: confusing-naming
+          disabled: true
+        - name: add-constant
+          disabled: true
+        - name: package-comments
+          disabled: true
+        - name: enforce-switch-style
           disabled: true
 
 formatters:

@@ -54,7 +54,7 @@ sudo rm -rf /etc/xdg/reflector/reflector.conf
 sudo cp ./reflector.conf /etc/xdg/reflector/
 
 echo "installing auto p state for amd"
-curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.2/install | bash
+curl -sSL https://github.com/ark-j/auto-pstate/releases/download/0.0.3/install | sudo bash
 
 echo "setting up libvirt"
 sudo virsh net-start default

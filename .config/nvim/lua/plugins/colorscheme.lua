@@ -78,4 +78,4 @@ local schemes = {
 	onedark = onedark,
 }
 
-return schemes.catppuccin
+return schemes.tokyonight

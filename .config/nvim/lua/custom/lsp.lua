@@ -38,14 +38,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local builtin = require("telescope.builtin")
 
 		vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-		vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = args.buf })
-		vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = args.buf })
-		vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = args.buf })
-		vim.keymap.set("n", "<leader>D", builtin.lsp_type_definitions, { buffer = args.buf })
-		vim.keymap.set("n", "ds", builtin.lsp_document_symbols, { buffer = args.buf })
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
+		vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = args.buf }) -- alt: grr
+		vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = args.buf }) -- alt: gri
+		vim.keymap.set("n", "<leader>D", builtin.lsp_type_definitions, { buffer = args.buf }) -- alt: grt
+		vim.keymap.set("n", "ds", builtin.lsp_document_symbols, { buffer = args.buf }) -- alt: gO
 		vim.keymap.set("n", "ws", builtin.lsp_dynamic_workspace_symbols, { buffer = args.buf })
-		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = args.buf })
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = args.buf })
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = args.buf }) -- alt: grn
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = args.buf }) -- alt: gra
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = args.buf })
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf })
 
@@ -80,7 +80,7 @@ vim.lsp.config("gopls", {
 			directoryFlags = { "-vendor", "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
 			-- vendor mode has problem with GD in external deps so -mod=mod is required
 			buildFlags = { "-tags=integration unit test pact release mock", "-mod=mod" },
-			completeUnimported = true,
+			-- completeUnimported = true,
 			hints = {
 				compositeLiteralFields = true,
 				assignVariableTypes = true,
@@ -121,15 +121,22 @@ vim.lsp.config("lua_ls", {
 			runtime = {
 				version = "LuaJIT",
 			},
-			diagonostics = {
+			diagnostics = {
 				globals = { "vim" },
 			},
 			completion = {
 				callSnippet = "Replace",
 			},
+			semantic = {
+				enable = true,
+			},
 			workspace = {
 				checkThirdParty = false,
-				library = vim.api.nvim_get_runtime_file("", true),
+				library = {
+					vim.env.VIMRUNTIME,
+					vim.fn.stdpath("data") .. "/lazy",
+					unpack(vim.api.nvim_get_runtime_file("", true)),
+				},
 			},
 			telemetry = {
 				enabled = false,

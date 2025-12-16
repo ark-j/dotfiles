@@ -32,6 +32,8 @@ vim.keymap.set("n", "tdq", "<Cmd>TodoQuickFix<CR>", { desc = "open todo in quick
 -- quickfix list navigation
 vim.keymap.set("n", "<C-n>", "<Cmd>cnext<CR>", { desc = "navigate forward in quickfix" })
 vim.keymap.set("n", "<C-p>", "<Cmd>cprev<CR>", { desc = "navigate backward in quickfix" })
+vim.keymap.set("n", "<C-A-n>", "<Cmd>lnext<CR>", { desc = "navigate forward in local list" })
+vim.keymap.set("n", "<C-A-p>", "<Cmd>lprev<CR>", { desc = "navigate backward in local list" })
 
 -- stay in indent mode in Visual
 vim.keymap.set("v", "<", "<gv", { desc = "indent prev keeping in visual mode" })

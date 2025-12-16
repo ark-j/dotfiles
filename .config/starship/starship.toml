@@ -1,15 +1,11 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](surface0)\
 $os\
 $username\
-[](bg:sapphire fg:surface0)\
 $directory\
-[](fg:sapphire bg:blue)\
 $git_branch\
 $git_status\
-[](fg:blue bg:lavender)\
 $c\
 $rust\
 $golang\
@@ -17,9 +13,7 @@ $nodejs\
 $java\
 $kotlin\
 $python\
-[](fg:lavender bg:mauve)\
 $cmd_duration\
-[](fg:mauve)\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -54,24 +48,18 @@ crust = "#11111b"
 
 [os]
 disabled = false
-style = "bg:surface0 fg:lavender"
+style = "fg:lavender"
 
 [os.symbols]
-Windows = "󰍲"
 Ubuntu = "󰕈"
 SUSE = ""
 Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = ""
-Manjaro = ""
 Linux = "󰌽"
 Gentoo = "󰣨"
 Fedora = "󰣛"
 Alpine = ""
 Amazon = ""
-Android = ""
 Arch = "󰣇"
-Artix = "󰣇"
 CentOS = ""
 Debian = "󰣚"
 Redhat = "󱄛"
@@ -79,13 +67,14 @@ RedHatEnterprise = "󱄛"
 
 [username]
 show_always = true
-style_user = "bg:surface0 fg:text"
-style_root = "bg:surface0 fg:text"
+style_user = "fg:peach"
+style_root = "fg:yellow"
 format = '[ $user ]($style)'
 
+# Dir
 [directory]
-style = "fg:mantle bg:sapphire"
-format = "[ $path ]($style)"
+style = "fg:blue"
+format = "[$path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -96,64 +85,19 @@ truncation_symbol = "…/"
 "Pictures" = " "
 "Developer" = "󰲋 "
 
+# Git
 [git_branch]
-symbol = ""
-style = "bg:teal"
-format = '[[ $symbol $branch ](fg:base bg:blue)]($style)'
+symbol = "󰘬"
+style = "fg:mauve"
+format = '[$symbol $branch ]($style)'
 
 [git_status]
-style = "bg:teal"
-format = '[[($all_status$ahead_behind )](fg:base bg:blue)]($style)'
+style = "fg:red"
+format = '[($all_status$ahead_behind )]($style)'
 
 [cmd_duration]
-disabled = false
-style = "bg:mauve"
-format = "[[ $duration ](fg:base bg:mauve)]($style)"
-
-[nodejs]
-symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[c]
-symbol = " "
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[rust]
-symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[java]
-symbol = " "
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:lavender)]($style)'
-
-[python]
-symbol = ""
-style = "bg:lavender"
-format = '[[${symbol} ${pyenv_prefix}(${version} )(($virtualenv) )](fg:base bg:lavender)]($style)'
-
-[lua]
-symbol = " "
-style = "bg:lavender"
-format = "[[ $symbol( $version) ](fg:base bg:lavender)]($style)"
-
-[pulumi]
-symbol = " "
-style = "bg:lavender"
-format = "[[ $symbol( $version) ](fg:base bg:lavender)]($style)"
+style = "fg:pink"
+format = "[$duration ]($style)"
 
 [line_break]
 disabled = false
@@ -166,3 +110,49 @@ vimcmd_symbol = '[ ](bold fg:sapphire)'
 vimcmd_replace_one_symbol = '[ ](bold fg:purple)'
 vimcmd_replace_symbol = '[ ](bold fg:purple)'
 vimcmd_visual_symbol = '[ ](bold fg:blue)'
+
+# Languages
+[nodejs]
+symbol = ""
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[c]
+symbol = " "
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[rust]
+symbol = ""
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[golang]
+symbol = ""
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[java]
+symbol = " "
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[kotlin]
+symbol = ""
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[python]
+symbol = ""
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[lua]
+symbol = " "
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'
+
+[pulumi]
+symbol = " "
+style = "fg:lavendar"
+format = '[$symbol( $version) ]($style)'

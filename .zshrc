@@ -105,7 +105,7 @@ alias aquired-ports="sudo lsof -i -P -n"
 alias list-uncommented="grep -v -e '^#' -e '^$' $1"
 alias fzfp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 alias batconfig="nvim ~/.config/bat/config"
-alias update="sudo pacman -Su && paru -Syu -a --skipreview --removemake --cleanafter --nokeepsrc"
+alias update="sudo pacman -Syyu && paru -Syu -a --skipreview --removemake --cleanafter --nokeepsrc"
 alias ipv4="ip addr | grep inet | grep -vE '127.0.0.1|inet6|docker0' | awk '{print \$2}' | sed 's|/24||'"
 
 # Shell integrations

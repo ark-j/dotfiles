@@ -6,7 +6,7 @@ normal = { family = "JetBrainsMono NF Light" }
 size = 13
 # normal = { family = "Fira Code Light" }
 # size = 13
-# normal = { family = "Berkeley Mono Condensed Md" }
+# normal = { family = "Berkeley Mono Light" }
 # size = 14
 # normal = { family = "VictorMono Nerd Font", style = "bold" }
 # size = 14
@@ -26,4 +26,4 @@ mouse = { enabled = true }
 term = "xterm-256color"
 
 [general]
-import = ["~/.config/alacritty/catppuccin-mocha.toml"]
+import = ["~/.config/alacritty/tokyo-night.toml"]

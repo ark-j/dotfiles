@@ -79,7 +79,7 @@ openssl req -new -key "$TMP_KEY" -out "$TMP_CSR" -config "$TMP_CONF"
 # -------------------------
 # Step 4: Sign CSR with lab.CA
 # -------------------------
-openssl x509 -req -in "$TMP_CSR" \
+sudo openssl x509 -req -in "$TMP_CSR" \
   -CA "$CA_CERT" -CAkey "$CA_KEY" -CAcreateserial \
   -out "$CERT_PATH" -days 825 -sha256 \
   -extfile "$TMP_CONF" -extensions req_ext

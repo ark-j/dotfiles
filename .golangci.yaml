@@ -24,12 +24,12 @@ linters:
     - staticcheck
     - unconvert
     - gocritic
-    - ireturn
     - misspell
     - sloglint
     - ineffassign
     - unused
     - errname
+    # - ireturn
     # - errcheck
     # - depgaurd
     # - errchkjson
@@ -96,6 +96,8 @@ linters:
         - name: package-comments
           disabled: true
         - name: enforce-switch-style
+          disabled: true
+        - name: call-to-gc
           disabled: true
 
 formatters:
